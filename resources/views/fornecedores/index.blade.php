@@ -7,6 +7,7 @@
   <input type="text" name="busca" value="{{ request('busca') }}" placeholder="Buscar por nome">
   <button type="submit">Buscar</button>
 </form>
+<a href="{{ route('fornecedores.create') }}">Novo Fornecedor</a>
 
 <form method="POST" >
   @csrf
@@ -23,8 +24,8 @@
       <tr>
         <td><input type="checkbox" name="ids[]" value="{{ $fornecedor->id }}"></td>
         <td>{{ $fornecedor->nome }}</td>
-        <td>
-        </td>
+        <td>{{ $fornecedor->cnpj }}</td>
+        <td></td>
       </tr>
       @endforeach
     </tbody>

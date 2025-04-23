@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('produto_fornecedor', function (Blueprint $table) {
             $table->foreignId('produto_id')->constrained()->onDelete('cascade');
-            $table->foreignId('fornecedor_id')->constrained()->onDelete('cascade');
+            $table->foreignId('fornecedor_id')->constrained('fornecedores')->onDelete('cascade');
             $table->primary(['produto_id', 'fornecedor_id']);
         });
     }

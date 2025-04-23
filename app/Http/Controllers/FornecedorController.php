@@ -28,7 +28,7 @@ class FornecedorController extends Controller
      */
     public function create()
     {
-        //
+        return view('fornecedores.create');
     }
 
     /**
@@ -36,7 +36,12 @@ class FornecedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'cnpj' => 'required|unique:fornecedores,cnpj',
+        ]);
+        Fornecedor::create($request->all());
+        return redirect()->route('fornecedores.index');
     }
 
     /**
