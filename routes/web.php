@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FornecedorController::class, 'index']);
 
+Route::delete('fornecedores/destroy-multiple', [FornecedorController::class, 'destroyMultiple'])->name('fornecedores.destroy-multiple');
 Route::resource('fornecedores', FornecedorController::class)->parameters([
     'fornecedores' => 'fornecedor'
 ]);
+
 Route::resource('produtos', ProdutoController::class);

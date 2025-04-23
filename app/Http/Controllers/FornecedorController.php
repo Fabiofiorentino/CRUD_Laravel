@@ -76,8 +76,36 @@ class FornecedorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Fornecedor $fornecedor)
     {
-        //
+        // Verifica se o fornecedor tem produtos associados
+        if ($fornecedor->produtos()->count() > 0) {
+            return redirect()->route('fornecedores.index')->with('error', 'Fornecedor não pode ser excluído, pois possui produtos associados.');
+        }
+        
+        // Exclui o fornecedor
+        $fornecedor->delete();
+        return redirect()->route('fornecedores.index')->with('success', 'Fornecedor excluído com sucesso.');
+
+    }
+
+    public function destroyMultiple(Request $request)
+    {
+        // Valida se os IDs foram enviados
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'exists:fornecedores,id',
+        ]);
+        
+        // Verifica se algum dos fornecedores tem produtos associados
+        foreach ($request->ids as $id) {
+            $fornecedor = Fornecedor::find($id);
+            if ($fornecedor && $fornecedor->produtos()->count() > 0) {
+                return redirect()->route('fornecedores.index')->with('error', 'Um ou mais fornecedores não podem ser excluídos, pois possuem produtos associados.');
+            }
+        }
+        // Exclui os fornecedores
+        Fornecedor::whereIn('id', $request->ids)->delete();
+        return redirect()->route('fornecedores.index');
     }
 }

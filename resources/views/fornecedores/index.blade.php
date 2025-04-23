@@ -9,13 +9,16 @@
 </form>
 <a href="{{ route('fornecedores.create') }}">Novo Fornecedor</a>
 
-<form method="POST" >
+<form method="POST" action="{{ route('fornecedores.destroy-multiple') }}">
   @csrf
+  @method('DELETE')
+  <button type="submit">Excluir Selecionados</button>
   <table border="1">
     <thead>
       <tr>
         <th><input type="checkbox" id="checkAll"></th>
         <th>Nome</th>
+        <th>CNPJ</th>
         <th>Ações</th>
       </tr>
     </thead>
