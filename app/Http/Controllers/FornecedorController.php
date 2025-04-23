@@ -55,17 +55,22 @@ class FornecedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Fornecedor $fornecedor)
     {
-        //
+        return view('fornecedores.edit', compact('fornecedor'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Fornecedor $fornecedor)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'cnpj' => 'required|unique:fornecedores,cnpj',
+        ]);
+        $fornecedor->update($request->all());
+        return redirect()->route('fornecedores.index');
     }
 
     /**

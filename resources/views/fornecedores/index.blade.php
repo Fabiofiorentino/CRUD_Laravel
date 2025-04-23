@@ -25,7 +25,8 @@
         <td><input type="checkbox" name="ids[]" value="{{ $fornecedor->id }}"></td>
         <td>{{ $fornecedor->nome }}</td>
         <td>{{ $fornecedor->cnpj }}</td>
-        <td></td>
+
+        <td><a href="{{ route('fornecedores.edit', $fornecedor) }}">Editar</a></td>
       </tr>
       @endforeach
     </tbody>
