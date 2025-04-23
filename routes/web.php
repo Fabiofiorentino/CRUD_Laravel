@@ -4,9 +4,7 @@ use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FornecedorController::class, 'index']);
 
 Route::resource('fornecedores', FornecedorController::class);
 Route::resource('produtos', ProdutoController::class);

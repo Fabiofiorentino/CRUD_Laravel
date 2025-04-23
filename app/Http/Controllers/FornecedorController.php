@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fornecedor;
 use Illuminate\Http\Request;
 
 class FornecedorController extends Controller
@@ -9,9 +10,17 @@ class FornecedorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Fornecedor::query();
+
+        if ($request->filled('busca')) {
+            $query->where('nome', 'like', '%' . $request->busca . '%');
+        }
+
+        $fornecedores = $query->get();
+
+        return view('fornecedores.index', compact('fornecedores'));
     }
 
     /**
