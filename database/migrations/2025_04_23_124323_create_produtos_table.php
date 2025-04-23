@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('descricao')->nullable();
             $table->decimal('preco', 10, 2);
             $table->integer('quantidade_estoque')->default(0);
+            $table->foreignId('fornecedor_id')->constrained('fornecedores')->onDelete('cascade');
             $table->timestamps();
         });
     }

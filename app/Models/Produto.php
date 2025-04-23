@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
+    protected $fillable = ['nome', 'descricao', 'preco', 'quantidade_estoque','fornecedor_id'];
+
     public function fornecedores()
     {
         return $this->belongsToMany(Fornecedor::class);

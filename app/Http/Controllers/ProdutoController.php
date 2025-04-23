@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fornecedor;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -9,9 +11,24 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Produto::query();
+
+        if ($request->filled('busca')) {
+            $query->where('nome', 'like', '%' . $request->busca . '%');
+        }
+
+        if ($request->filled('fornecedor_id')) {
+            $query->whereHas('fornecedores', function ($q) use ($request) {
+                $q->where('fornecedores.id', $request->fornecedor_id);
+            });
+        }
+
+        $produtos = $query->get();
+        $fornecedores = Fornecedor::all();
+
+        return view('produtos.index', compact('produtos', 'fornecedores'));
     }
 
     /**
@@ -19,7 +36,8 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        $fornecedores = Fornecedor::all();
+        return view('produtos.create', compact('fornecedores'));
     }
 
     /**
@@ -27,7 +45,16 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'descricao' => 'nullable',
+            'preco' => 'required|numeric',
+            'fornecedor_id' => 'required|exists:fornecedores,id',
+        ]);
+    
+        Produto::create($request->all());
+    
+        return redirect()->route('produtos.index');
     }
 
     /**
@@ -41,24 +68,41 @@ class ProdutoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Produto $produto)
     {
-        //
+        $fornecedores = Fornecedor::all();
+        $produto->load('fornecedores');
+        return view('produtos.edit', compact('produto', 'fornecedores'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Produto $produto)
     {
-        //
+        $request->validate([
+            'nome' => 'required',
+            'fornecedores' => 'array'
+        ]);
+
+        $produto->update($request->only('nome'));
+        $produto->fornecedores()->sync($request->fornecedores);
+
+        return redirect()->route('produtos.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Produto $produto)
     {
-        //
+        $produto->delete();
+        return redirect()->route('produtos.index');
+    }
+
+    public function destroyMultiple(Request $request)
+    {
+        Produto::whereIn('id', $request->ids)->delete();
+        return redirect()->route('produtos.index');
     }
 }

@@ -10,5 +10,5 @@ Route::delete('fornecedores/destroy-multiple', [FornecedorController::class, 'de
 Route::resource('fornecedores', FornecedorController::class)->parameters([
     'fornecedores' => 'fornecedor'
 ]);
-
+Route::delete('produtos/destroy-multiple', [ProdutoController::class, 'destroyMultiple'])->name('produtos.destroy-multiple');
 Route::resource('produtos', ProdutoController::class);

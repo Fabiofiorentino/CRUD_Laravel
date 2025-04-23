@@ -17,6 +17,7 @@
 <body>
     <nav>
         <a href="{{ route('fornecedores.index') }}">Fornecedores</a>
+        <a href="{{ route('produtos.index') }}">Produtos</a>
     </nav>
 
     <hr>
