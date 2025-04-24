@@ -1,5 +1,5 @@
 
-# VMarket CRUD
+# CRUD Laravel
 
 Sistema simples de gerenciamento de produtos e fornecedores desenvolvido com **Laravel**.
 
