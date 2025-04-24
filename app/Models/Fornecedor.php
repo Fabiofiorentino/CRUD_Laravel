@@ -15,6 +15,6 @@ class Fornecedor extends Model
 
     public function produtos()
     {
-        return $this->belongsToMany(Produto::class);
+        return $this->belongsToMany(Fornecedor::class);
     }
 }

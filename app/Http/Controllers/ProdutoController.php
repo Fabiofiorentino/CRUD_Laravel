@@ -49,11 +49,13 @@ class ProdutoController extends Controller
             'nome' => 'required',
             'descricao' => 'nullable',
             'preco' => 'required|numeric',
-            'fornecedor_id' => 'required|exists:fornecedores,id',
+            'quantidade_estoque' => 'nullable|integer',
+            'fornecedores' => 'array|required',
         ]);
-    
-        Produto::create($request->all());
-    
+        
+        $produto = Produto::create($request->only('nome', 'descricao', 'preco', 'quantidade_estoque'));
+        $produto->fornecedores()->attach($request->fornecedores);
+
         return redirect()->route('produtos.index');
     }
 

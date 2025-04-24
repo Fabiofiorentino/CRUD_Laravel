@@ -18,13 +18,12 @@
   <label>Quantidade:</label>
   <input type="number" name="quantidade_estoque" value="{{ $produto->quantidade_estoque }}" required>
 
-  <label>Fornecedor:</label>
-  <select name="fornecedor_id" required>
-    <option value="">Selecione</option>
-    @foreach($fornecedores as $fornecedor)
-      <option value="{{ $fornecedor->id }}" {{ $produto->fornecedor_id == $fornecedor->id ? 'selected' : '' }}>{{ $fornecedor->nome }}</option>
-    @endforeach
-  </select>
+  <label>Fornecedores:</label>
+<select name="fornecedores[]" multiple>
+  @foreach($fornecedores as $f)
+    <option value="{{ $f->id }}">{{ $f->nome }}</option>
+  @endforeach
+</select>
 
   <button type="submit">Salvar</button>
 </form>

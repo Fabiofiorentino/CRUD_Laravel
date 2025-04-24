@@ -33,7 +33,9 @@
         <td><input type="checkbox" name="ids[]" value="{{ $produto->id }}"></td>
         <td>{{ $produto->nome }}</td>
         <td>
-          {{ $fornecedores->firstWhere('id', $produto->fornecedor_id)->nome ?? 'Fornecedor não encontrado' }}
+          @foreach($produto->fornecedores as $fornecedor)
+            {{ $fornecedor->nome }}@if(!$loop->last), @endif
+          @endforeach
         </td>
         <td>
           <a href="{{ route('produtos.edit', $produto) }}">Editar</a>
