@@ -1,16 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Novo Fornecedor</h1>
+  <h1>Novo Fornecedor</h1>
 
-<form method="POST" action="{{ route('fornecedores.store') }}">
-  @csrf
-  <label>Nome:</label>
-  <input type="text" name="nome" required>
-  <br>
-  <label>CNPJ:</label>
-  <input type="text" name="cnpj" required>
-  <br>
-  <button type="submit">Salvar</button>
-</form>
+  <form method="POST" action="{{ route('fornecedores.store') }}">
+    @csrf
+    <div class="mb-3">
+      <label class="form-label">Nome:</label>
+      <input type="text" name="nome" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">CNPJ:</label>
+      <input type="text" name="cnpj" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+  </form>
 @endsection
