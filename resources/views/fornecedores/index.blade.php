@@ -33,7 +33,7 @@
           <tr>
             <td><input type="checkbox" name="ids[]" value="{{ $fornecedor->id }}"></td>
             <td>{{ $fornecedor->nome }}</td>
-            <td>{{ $fornecedor->cnpj }}</td>
+            <td>{{ preg_replace('/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/', '$1.$2.$3/$4-$5', $fornecedor->cnpj) }}</td>
             <td><a href="{{ route('fornecedores.edit', $fornecedor) }}" class="btn btn-sm btn-warning">Editar</a></td>
           </tr>
         @endforeach
