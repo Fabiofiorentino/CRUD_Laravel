@@ -9,7 +9,6 @@ Sistema simples de gerenciamento de produtos e fornecedores desenvolvido com **L
 - Associação de múltiplos fornecedores a um produto (relacionamento muitos-para-muitos)
 - Filtros e busca por nome e fornecedor
 - Exclusão em massa de produtos e fornecedores
-- Validações de formulário
 - Interface estilizada com **Bootstrap**
 - Máscara para campo de CNPJ
 
